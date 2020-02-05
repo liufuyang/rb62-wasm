@@ -32,33 +32,3 @@ fs.readFile('pkg/rb62_wasm_bg.wasm', (err, bytes) => {
 
     }).catch(console.error);
 });
-
-// let Module = {};
-//
-// let Rb62 = {
-//     getInteger: function(str) {
-//         let buf = bundle.newStr(Module, str);
-//         let outptr = Module.get_integer(buf);
-//         let result = bundle.getStr(Module, outptr, 32);
-//         return result;
-//     },
-//     getB62: function(str) {
-//         let buf = bundle.newStr(Module, str);
-//         let outptr = Module.get_b62(buf);
-//         let result = bundle.getStr(Module, outptr, 22);
-//         return result;
-//     },
-// };
-//
-// bundle.fetchAndInstantiate("./pkg/rb62_wasm_bg.wasm", imports)
-//     .then(mod => {
-//         Module.alloc   = mod.exports.alloc;
-//         Module.dealloc = mod.exports.dealloc;
-//         Module.dealloc_str = mod.exports.dealloc_str;
-//         Module.digest  = mod.exports.digest;
-//         Module.memory  = mod.exports.memory;
-//     })
-//     .then(_ => {
-//         console.log(Rb62.getInteger("6GGODyP2LIdbxIfYxy5UbN"))
-//         console.log(Rb62.getInteger("dbc3d5ebe344484da3e2448712a02213"))
-//     });
