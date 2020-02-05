@@ -49,10 +49,18 @@ pub fn hello() -> *mut c_char {
 pub fn get_integer(base62: *mut c_char) -> *mut c_char {
     unsafe {
         let base62 = CStr::from_ptr(base62).to_str().unwrap();
-        let hex_as_u128 = rb62::get_integer(base62).unwrap();
-        let hex = format!("{:032x}", hex_as_u128);
-        let s = CString::new(hex).unwrap();
-        s.into_raw()
+        match rb62::get_integer(base62) {
+            Some(hex_as_u128) => {
+                let hex = format!("{:032x}", hex_as_u128);
+                let s = CString::new(hex).unwrap();
+                s.into_raw()
+            },
+            None => {
+                let s = CString::new("Not Valid Input                ").unwrap();
+                s.into_raw()
+            }
+        }
+
     }
 }
 
@@ -60,10 +68,18 @@ pub fn get_integer(base62: *mut c_char) -> *mut c_char {
 pub fn get_b62(hex: *mut c_char) -> *mut c_char {
     unsafe {
         let hex = CStr::from_ptr(hex).to_str().unwrap();
-        let b62 = rb62::get_b62(hex).unwrap();
-        let b62 = str::from_utf8(&b62).unwrap();
-        let s = CString::new(b62).unwrap();
-        s.into_raw()
+        match rb62::get_b62(hex) {
+            Some(b62) => {
+                let b62 = str::from_utf8(&b62).unwrap();
+                let s = CString::new(b62).unwrap();
+                s.into_raw()
+            },
+            None => {
+                let s = CString::new("Not Valid Input       ").unwrap();
+                s.into_raw()
+            }
+        }
+
     }
 }
 
