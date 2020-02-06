@@ -1,3 +1,4 @@
 /target
 /pkg
-Cargo.lock
+/base62.js
+/base62.sql
