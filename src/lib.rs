@@ -49,10 +49,10 @@ pub fn hello() -> *mut c_char {
 pub fn get_integer(base62: *mut c_char) -> *mut c_char {
     unsafe {
         let base62 = CStr::from_ptr(base62).to_str().unwrap();
-        match rb62::get_integer(base62) {
-            Some(hex_as_u128) => {
-                let hex: String = format!("{:032x}", hex_as_u128);
-                let s: CString = CString::new(hex).unwrap();
+        match rb62::get_hex(base62) {
+            Some(hex) => {
+                let s = str::from_utf8(&hex).unwrap();
+                let s: CString = CString::new(s).unwrap();
                 s.into_raw() // return type -> *mut c_char
             },
             None => {

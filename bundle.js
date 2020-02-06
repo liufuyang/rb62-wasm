@@ -4,11 +4,13 @@ module.exports = {
         let string_buffer = utf8Encoder.encode(str);
         let len = string_buffer.length;
         let ptr = module.alloc(len + 1);
+        console.log(ptr);
 
         let memory = new Uint8Array(module.memory.buffer);
-        for (i = 0; i < len; i++) {
-            memory[ptr + i] = string_buffer[i]
-        }
+        //for (i = 0; i < len; i++) {
+        //    memory[ptr + i] = string_buffer[i]
+        //}
+        memory.set(string_buffer, ptr);
 
         memory[ptr + len] = 0;
 
@@ -17,16 +19,17 @@ module.exports = {
 
     // will clean up ptr
     getStr: function (module, ptr, len) {
-        const getData = function* (ptr, len) {
-            let memory = new Uint8Array(module.memory.buffer);
-            for (let index = 0; index < len; index++) {
-                if (memory[ptr] === undefined) {
-                    throw new Error(`Tried to read undef mem at ${ptr}`)
-                }
-                yield memory[ptr + index]
-            }
-        };
-        const buffer_as_u8 = new Uint8Array(getData(ptr, len));
+        // const getData = function* (ptr, len) {
+        //     let memory = new Uint8Array(module.memory.buffer);
+        //     for (let index = 0; index < len; index++) {
+        //         if (memory[ptr] === undefined) {
+        //             throw new Error(`Tried to read undef mem at ${ptr}`)
+        //         }
+        //         yield memory[ptr + index]
+        //     }
+        // };
+
+        const buffer_as_u8 = new Uint8Array(module.memory.buffer).slice(ptr, ptr + len);
         const utf8Decoder = new TextDecoder("UTF-8");
         const buffer_as_utf8 = utf8Decoder.decode(buffer_as_u8);
         // Added by me, clean the input data

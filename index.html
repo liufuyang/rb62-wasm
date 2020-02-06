@@ -30,12 +30,16 @@ B62: <span id="output_b62">B62 will be shown here</span>
         getInteger: function (str) {
             let buf = newStr(Module, str);
             let outptr = Module.get_integer(buf);
+            console.log(buf); // sanity check no memory loss
+            Module.dealloc_str(buf);
             let result = getStr(Module, outptr, 32);
             return result;
         },
         getB62: function (str) {
             let buf = newStr(Module, str);
             let outptr = Module.get_b62(buf);
+            console.log(buf); // sanity check no memory loss
+            Module.dealloc_str(buf);
             let result = getStr(Module, outptr, 22);
             return result;
         },
@@ -53,15 +57,10 @@ B62: <span id="output_b62">B62 will be shown here</span>
 
             const input_b62 = document.getElementById("input_b62");
             const output_hex = document.getElementById("output_hex");
-            console.log(mod.exports.get_integer2);
-            console.log(mod.exports.get_integer3);
-            console.log(typeof input_b62.value);
 
-            output_hex.innerText = mod.exports.get_integer2(input_b62.value);
-            debugger;
-
+            output_hex.innerText = Rb62.getInteger(input_b62.value);
             input_b62.addEventListener("keyup", function (e) {
-                output_hex.innerText = mod.exports.get_integer2(input_b62.value);
+                output_hex.innerText = Rb62.getInteger(input_b62.value);
             });
 
             const input_hex = document.getElementById("input_hex");

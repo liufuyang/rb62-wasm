@@ -16,9 +16,7 @@ function newStr(module, str) {
     let ptr = module.alloc(len + 1);
 
     let memory = new Uint8Array(module.memory.buffer);
-    for (i = 0; i < len; i++) {
-        memory[ptr + i] = string_buffer[i]
-    }
+     memory.set(string_buffer, ptr);
 
     memory[ptr + len] = 0;
 
@@ -27,16 +25,8 @@ function newStr(module, str) {
 
 // will clean up ptr
 function getStr(module, ptr, len) {
-    const getData = function* (ptr, len) {
-        let memory = new Uint8Array(module.memory.buffer);
-        for (let index = 0; index < len; index++) {
-            if (memory[ptr] === undefined) {
-                throw new Error(`Tried to read undef mem at ${ptr}`)
-            }
-            yield memory[ptr + index]
-        }
-    };
-    const buffer_as_u8 = new Uint8Array(getData(ptr, len));
+
+    const buffer_as_u8 = new Uint8Array(module.memory.buffer).slice(ptr, ptr + len);
     const utf8Decoder = new TextDecoder("UTF-8");
     const buffer_as_utf8 = utf8Decoder.decode(buffer_as_u8);
     // Added by me, clean the input data

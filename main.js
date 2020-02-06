@@ -1,7 +1,7 @@
 const fs = require('fs');
 const bundle = require('./bundle');
 
-const memory = new WebAssembly.Memory({initial: 256, maximum: 256});
+const memory = new WebAssembly.Memory({initial: 1, maximum: 1});
 const env = {
     'abortStackOverflow': _ => {
         throw new Error('overflow');
@@ -9,7 +9,7 @@ const env = {
     'table': new WebAssembly.Table({initial: 0, maximum: 0, element: 'anyfunc'}),
     'tableBase': 0,
     'memory': memory,
-    'memoryBase': 1024,
+    'memoryBase': 1,
     'STACKTOP': 0,
     'STACK_MAX': memory.buffer.byteLength,
 };
@@ -22,6 +22,7 @@ fs.readFile('pkg/rb62_wasm_bg.wasm', (err, bytes) => {
 
         let b62 = bundle.newStr(exports, "6GGODyP2LIdbxIfYxy5UbN");
         const output_ptr = exports.get_integer(b62);
+        exports.dealloc_str(b62);
         let hex = bundle.getStr(exports, output_ptr, 32);
         console.log(hex);
 
