@@ -36,6 +36,9 @@ module.exports = {
 };
 
 // https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_wasm
+// https://medium.com/@sourcedtech/calling-c-functions-from-bigquery-with-web-assembly-c19c023fc755
+// https://medium.com/@hoffa/bigquery-beyond-sql-and-js-running-c-and-rust-code-at-scale-33021763ee1f
+// https://stackoverflow.com/questions/57897905/running-async-js-functions-on-bigquery-with-standardsql/57897906#57897906
 
 // https://stackoverflow.com/questions/47529643/how-to-return-a-string-or-similar-from-rust-in-webassembly
 // https://github.com/WebAssembly/design/blob/master/Semantics.md#types

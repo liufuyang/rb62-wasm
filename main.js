@@ -30,5 +30,8 @@ fs.readFile('pkg/rb62_wasm_bg.wasm', (err, bytes) => {
         let b62_output = bundle.getStr(exports, b62_output_ptr2, 22);
         console.log(b62_output);
 
+        console.log(exports.return_string);
+        console.log(exports.return_string());
+
     }).catch(console.error);
 });

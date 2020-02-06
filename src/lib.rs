@@ -51,9 +51,9 @@ pub fn get_integer(base62: *mut c_char) -> *mut c_char {
         let base62 = CStr::from_ptr(base62).to_str().unwrap();
         match rb62::get_integer(base62) {
             Some(hex_as_u128) => {
-                let hex = format!("{:032x}", hex_as_u128);
-                let s = CString::new(hex).unwrap();
-                s.into_raw()
+                let hex: String = format!("{:032x}", hex_as_u128);
+                let s: CString = CString::new(hex).unwrap();
+                s.into_raw() // return type -> *mut c_char
             },
             None => {
                 let s = CString::new("Not Valid Input                ").unwrap();
@@ -62,6 +62,39 @@ pub fn get_integer(base62: *mut c_char) -> *mut c_char {
         }
 
     }
+}
+
+#[wasm_bindgen]
+pub fn get_integer2(base62: String) -> String {
+
+    match rb62::get_integer(&base62.as_str()) {
+        Some(hex_as_u128) => {
+            format!("{:032x}", hex_as_u128)
+        },
+        None => {
+            "Not Valid Input                ".into()
+        }
+    }
+
+}
+//
+//#[wasm_bindgen]
+//pub fn get_integer2(base62: &JsValue) -> JsValue {
+//
+//    match rb62::get_integer(&base62.as_string().unwrap()) {
+//        Some(hex_as_u128) => {
+//            JsValue::from_str(&format!("{:032x}", hex_as_u128))
+//        },
+//        None => {
+//            JsValue::from_str("Not Valid Input                ")
+//        }
+//    }
+//
+//}
+
+#[wasm_bindgen]
+pub fn return_string() -> String {
+    "hello".into()
 }
 
 #[wasm_bindgen]

@@ -48,13 +48,20 @@ B62: <span id="output_b62">B62 will be shown here</span>
             Module.memory = mod.exports.memory;
 
             Module.get_integer = mod.exports.get_integer;
+
             Module.get_b62 = mod.exports.get_b62;
 
             const input_b62 = document.getElementById("input_b62");
             const output_hex = document.getElementById("output_hex");
-            output_hex.innerText = Rb62.getInteger(input_b62.value);
+            console.log(mod.exports.get_integer2);
+            console.log(mod.exports.get_integer3);
+            console.log(typeof input_b62.value);
+
+            output_hex.innerText = mod.exports.get_integer2(input_b62.value);
+            debugger;
+
             input_b62.addEventListener("keyup", function (e) {
-                output_hex.innerText = Rb62.getInteger(input_b62.value);
+                output_hex.innerText = mod.exports.get_integer2(input_b62.value);
             });
 
             const input_hex = document.getElementById("input_hex");
