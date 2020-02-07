@@ -1,6 +1,6 @@
 ```
-wasm-pack build --scope fuyangl --release --target no-modules
-node generate-sql.js
+wasm-pack build --release --target no-modules
+node generate.js
 ```
 
-Now upload the `base62.sql` file to BigQuery
+Now upload the `base62.js` file to BigQuery
