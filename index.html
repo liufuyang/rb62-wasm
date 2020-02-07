@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Using Rust/Wasm code to do base62 encoding and decoding</h2>
+<p>Try change value below and you can see base62 function gets called. </p>
+<p>This base62 function is written in Rust and code can be seen <a href="https://github.com/liufuyang/rb62">here</a>.</p>
+<p>The Rust/Wasm code can be seen <a href="https://github.com/liufuyang/rb62-wasm">in this repo</a>.</p>
+<h4>B62 to Hex</h4>
+<div class="form">
+    B62: <input type="text" name="input" id="input_b62" size="32" value="6GGODyP2LIdbxIfYxy5UbN">
+</div>
+Hex: <span id="output_hex">Hex will be shown here</span>
+
+<br/>
+<br/>
+
+<h4>Hex to B62</h4>
+<div class="form">
+    Hex: <input type="text" name="input" id="input_hex" size="48" value="ffffffffffffffffffffffffffffffff">
+</div>
+
+B62: <span id="output_b62">B62 will be shown here</span>
+
+
+<script src="base62.js"></script>
+<script>
+    wasm.then(() => {
+        const input_b62 = document.getElementById("input_b62");
+        const output_hex = document.getElementById("output_hex");
+
+        output_hex.innerText = wasm_bindgen.get_integer(input_b62.value);
+        input_b62.addEventListener("keyup", function (e) {
+            output_hex.innerText = wasm_bindgen.get_integer(input_b62.value);
+        });
+
+        const input_hex = document.getElementById("input_hex");
+        const output_b62 = document.getElementById("output_b62");
+        output_b62.innerText = wasm_bindgen.get_b62(input_hex.value);
+        input_hex.addEventListener("keyup", function (e) {
+            output_b62.innerText = wasm_bindgen.get_b62(input_hex.value);
+        });
+    });
+
+</script>
+</body>
+</html>
+
