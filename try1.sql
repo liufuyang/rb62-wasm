@@ -1,7 +1,10 @@
 CREATE TEMP FUNCTION `magic_function`(x INT64, y INT64) RETURNS INT64
   LANGUAGE js
   OPTIONS (
-    library=["gs://bq-udfs/v0.0.3-30/base62.js"]
+        library=[
+        "gs://fh-bigquery/js/inexorabletash.encoding.js",
+        "gs://fuyang-draper-1/base62.js"
+    ]
   )
   AS '''
     return wasm.then(() => {

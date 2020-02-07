@@ -1,7 +1,10 @@
 CREATE TEMP FUNCTION `b62_to_hex`(b62 ARRAY<STRING>) RETURNS ARRAY<STRING>
   LANGUAGE js
   OPTIONS (
-    library=["gs://bq-udfs/v0.0.3-30/base62.js"]
+        library=[
+        "gs://fh-bigquery/js/inexorabletash.encoding.js",
+        "gs://fuyang-draper-1/base62.js"
+    ]
   )
   AS '''
     return wasm.then(() => {
