@@ -21,3 +21,8 @@ Note:
 * It seems for now to let the JS script work on Bigquery you would need 
 this `"gs://fh-bigquery/js/inexorabletash.encoding.js"` package. As mentioned here
 https://stackoverflow.com/questions/60094731/can-i-use-textencoder-in-bigquery-js-udf/60102710#60102710
+
+<h4>And this is what it looks like if you upload base62.js and use it in BigQuery as a user defined function</h4>
+<div>
+    <img src="bq_demo.png" alt="Bigquery Demo">
+</div>
