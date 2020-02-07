@@ -1,14 +1,21 @@
+This is a demo project that you can easily run Rust code as wasm on browser or Bigquery, 
+relatively easily.
+
+To build the project:
 ```
 wasm-pack build --release --target no-modules
 node generate.js 
 # above commend will generate a base62.js file
 ```
 
-Then replace the word `self` to `this` in `base62.js`
+And you need to manually replace the word `self` to `this` in `base62.js`.
+(For now this is now I get it to work, not sure in the future there will be some 
+changes on the generated code.)
 
-Now upload the `base62.js` file to BigQuery. Then you can test out some queries
+Then you can upload the `base62.js` file to BigQuery. Then you can test out some queries
 like `try1.sql`.
 
+Or you can visit this simple page https://liufuyang.github.io/rb62-wasm/ to try run the wasm in browser.
 
 Note:
 * It seems for now to let the JS script work on Bigquery you would need 
