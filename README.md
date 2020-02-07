@@ -28,4 +28,5 @@ https://stackoverflow.com/questions/60094731/can-i-use-textencoder-in-bigquery-j
 </div>
 
 ## Special Thanks:
-Thank @Pauan for helping me setting up the wasm_bindgen and tweak it for my special BigQuery use case.
+Thank <a href="https://github.com/Pauan">@Pauan</a> for helping me setting up the `wasm_bindgen`
+and tweak it for my special BigQuery use case.
