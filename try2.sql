@@ -4,7 +4,7 @@ CREATE TEMP FUNCTION `magic_function`(x INT64, y INT64) RETURNS INT64
     library=["gs://bq-udfs/v0.0.3-30/base62.js"]
   )
   AS '''
-    return wasm_bindgen(bytes).then(() => {
+    return wasm.then(() => {
         return wasm_bindgen.sum(x, y);
     });
   ''';

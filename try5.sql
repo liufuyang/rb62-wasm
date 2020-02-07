@@ -4,7 +4,7 @@ CREATE TEMP FUNCTION `hex_to_b62`(hex ARRAY<STRING>) RETURNS ARRAY<STRING>
     library=["gs://bq-udfs/v0.0.3-30/base62.js"]
   )
   AS '''
-    return wasm_bindgen(bytes).then(() => {
+    return wasm.then(() => {
         return hex.map((val) => {
             return wasm_bindgen.get_b62(val);
         });

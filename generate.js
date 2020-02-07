@@ -7,4 +7,5 @@ const bytes = Array.from(new Uint8Array(buffer.buffer));
 
 fs.writeFileSync("base62.js", `\
 ${glue}
-self.bytes = new Uint8Array(${JSON.stringify(bytes)});`);
+self.wasm = wasm_bindgen(new Uint8Array(${JSON.stringify(bytes)}));
+`);
