@@ -1,125 +1,47 @@
-// wasm-pack build --scope fuyangl
-
-extern crate wasm_bindgen;
-
 use wasm_bindgen::prelude::*;
 use rb62;
 
-use std::ffi::{CString, CStr};
-use std::os::raw::{c_char, c_void};
-use std::mem;
-use std::str;
 
-
-// Helper functions - https://github.com/badboy/hellorust/blob/master/demos/sha1/sha1-digest.rs
-#[no_mangle]
-pub extern "C" fn alloc(size: usize) -> *mut c_void {
-    let mut buf = Vec::with_capacity(size);
-    let ptr = buf.as_mut_ptr();
-    mem::forget(buf);
-    return ptr as *mut c_void;
+#[wasm_bindgen]
+pub fn sum(a: f64, b: f64) -> f64 {
+    a + b
 }
 
-#[no_mangle]
-pub extern "C" fn dealloc(ptr: *mut c_void, cap: usize) {
-    unsafe  {
-        let _buf = Vec::from_raw_parts(ptr, 0, cap);
+
+#[wasm_bindgen]
+pub fn get_integer(base62: &str) -> String {
+    match rb62::get_hex(base62) {
+        Some(hex) => {
+            std::str::from_utf8(&hex).unwrap().to_string()
+        },
+        None => {
+            "Not Valid Input                ".to_string()
+        },
     }
 }
 
-#[no_mangle]
-pub extern "C" fn dealloc_str(ptr: *mut c_char) {
-    unsafe {
-        let _ = CString::from_raw(ptr);
-    }
-}
 
 #[wasm_bindgen]
-pub fn sum(a: isize, b: isize) -> isize {
-    return a + b;
-}
-
-#[wasm_bindgen]
-pub fn hello() -> *mut c_char {
-    let s = CString::new("hello").unwrap();
-    s.into_raw()
-}
-
-#[wasm_bindgen]
-pub fn get_integer(base62: *mut c_char) -> *mut c_char {
-    unsafe {
-        let base62 = CStr::from_ptr(base62).to_str().unwrap();
-        match rb62::get_hex(base62) {
-            Some(hex) => {
-                let s = str::from_utf8(&hex).unwrap();
-                let s: CString = CString::new(s).unwrap();
-                s.into_raw() // return type -> *mut c_char
-            },
-            None => {
-                let s = CString::new("Not Valid Input                ").unwrap();
-                s.into_raw()
-            }
-        }
-
-    }
-}
-
-#[wasm_bindgen]
-pub fn get_integer2(base62: String) -> String {
-
-    match rb62::get_integer(&base62.as_str()) {
+pub fn get_integer2(base62: &str) -> String {
+    match rb62::get_integer(&base62) {
         Some(hex_as_u128) => {
             format!("{:032x}", hex_as_u128)
         },
         None => {
-            "Not Valid Input                ".into()
-        }
-    }
-
-}
-//
-//#[wasm_bindgen]
-//pub fn get_integer2(base62: &JsValue) -> JsValue {
-//
-//    match rb62::get_integer(&base62.as_string().unwrap()) {
-//        Some(hex_as_u128) => {
-//            JsValue::from_str(&format!("{:032x}", hex_as_u128))
-//        },
-//        None => {
-//            JsValue::from_str("Not Valid Input                ")
-//        }
-//    }
-//
-//}
-
-#[wasm_bindgen]
-pub fn return_string() -> String {
-    "hello".into()
-}
-
-#[wasm_bindgen]
-pub fn get_b62(hex: *mut c_char) -> *mut c_char {
-    unsafe {
-        let hex = CStr::from_ptr(hex).to_str().unwrap();
-        match rb62::get_b62(hex) {
-            Some(b62) => {
-                let b62 = str::from_utf8(&b62).unwrap();
-                let s = CString::new(b62).unwrap();
-                s.into_raw()
-            },
-            None => {
-                let s = CString::new("Not Valid Input       ").unwrap();
-                s.into_raw()
-            }
-        }
-
+            "Not Valid Input                ".to_string()
+        },
     }
 }
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+
+#[wasm_bindgen]
+pub fn get_b62(hex: &str) -> String {
+    match rb62::get_b62(hex) {
+        Some(b62) => {
+            std::str::from_utf8(&b62).unwrap().to_string()
+        },
+        None => {
+            "Not Valid Input       ".to_string()
+        },
     }
 }
