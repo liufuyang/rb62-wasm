@@ -3,7 +3,7 @@ CREATE TEMP FUNCTION `b62_to_hex`(b62 ARRAY<STRING>) RETURNS ARRAY<STRING>
   OPTIONS (
         library=[
         "gs://fh-bigquery/js/inexorabletash.encoding.js",
-        "gs://fuyang-draper-1/base62.js"
+        "gs://liufuyang/public/rb62-wasm/base62.js"
     ]
   )
   AS '''

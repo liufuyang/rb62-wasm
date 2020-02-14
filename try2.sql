@@ -3,7 +3,7 @@ CREATE TEMP FUNCTION `magic_function`(x INT64, y INT64) RETURNS INT64
   OPTIONS (
         library=[
         "gs://fh-bigquery/js/inexorabletash.encoding.js",
-        "gs://fuyang-draper-1/base62.js"
+        "gs://liufuyang/public/rb62-wasm/base62.js"
     ]
   )
   AS '''
