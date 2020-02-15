@@ -1,7 +1,6 @@
 use wasm_bindgen::prelude::*;
 use rb62;
 use js_sys::Array;
-use rayon::prelude::*;
 
 #[wasm_bindgen]
 pub fn sum(a: f64, b: f64) -> f64 {
@@ -23,7 +22,7 @@ pub fn get_integer(base62: &str) -> String {
 
 #[wasm_bindgen]
 pub fn get_integer_batch(base62s: Array) -> Array {
-    base62s.par_iter()
+    base62s.iter()
         .map(|base62|
             match rb62::get_hex(&base62.as_string().unwrap()) {
                 Some(hex) => {
